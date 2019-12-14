@@ -1,24 +1,9 @@
-# README
+# Ruby on Rails: Computer Speed Test
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app uses javascript to test the speed of your computer's processor and Javascript engine. Rails 6.0.1 is used to store the results. The app is hosted on heroku at www.computer-speed-test.us
 
-Things you may want to cover:
+Using Javascript allows the test to conveniently be run on a wide variety of systems. 
 
-* Ruby version
+It also includes several static pages comparing the speed of different languages and browsers. Older browsers are very much slower.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is an update of an earlier Rails 3 app
