@@ -2,14 +2,39 @@
 <html>
   <head>
     <title>Speedtest2</title>
+    <meta charset="utf-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 
+                      'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div id="container">
+
+      <div id="header">
+        <h1>Test the speed of your computer!</h1>
+      </div>
+
+      <div class = "nav">
+        <ul class="nav">
+          <li><a href = page_index_path >Home</a></li>
+          <li><a href= "#">Test Speed</a></li>
+          <li><a href="#">Results</a></li>
+          <li><a href= page_languages_path >Languages Compared</a></li>
+          <li> <a href= page_browsers_path >Browsers Compared</a></li>
+       </ul>
+      </div>
+
+      <div id = "main">
+        <%= yield %>
+      </div>
+
+      <div id ="footer">
+      </div>
+
+    </div>
   </body>
 </html>
