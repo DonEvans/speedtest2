@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   root 'page#index'
   get 'computers/index'
-  get 'computers/show'
-  get 'computers/new'
+  get '/results', to: 'computers#index'
+  get '/test', to: 'computers#new'
   get 'computers/create'
   get 'computers/edit'
-  get 'page/index'
-  get 'page/languages'
-  get 'page/browsers'
+  get '/languages', to: 'page#languages'
+  get '/browsers', to: 'page#browsers'
 end

@@ -9,6 +9,10 @@
     <%= stylesheet_link_tag 'application', media: 'all', 
                       'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
   </head>
 
   <body>
@@ -20,11 +24,11 @@
 
       <div class = "nav">
         <ul class="nav">
-          <li><a href = page_index_path >Home</a></li>
-          <li><a href= "#">Test Speed</a></li>
-          <li><a href="#">Results</a></li>
-          <li><a href= page_languages_path >Languages Compared</a></li>
-          <li> <a href= page_browsers_path >Browsers Compared</a></li>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Test Speed", test_path %></li>
+          <li><%= link_to "Results", results_path %></li>
+          <li><%= link_to "Languages Compared", languages_path %></li>
+          <li> <%= link_to "Browsers Compared", browsers_path %></li>
        </ul>
       </div>
 
