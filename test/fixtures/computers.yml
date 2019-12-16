@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  userName: MyString
+  category: MyString
+  browser: MyString
+  userAgentString: MyString
+  description: MyString
+  time: 1
+
+two:
+  userName: MyString
+  category: MyString
+  browser: MyString
+  userAgentString: MyString
+  description: MyString
+  time: 1

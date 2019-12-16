@@ -10,6 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_12_15_215444) do
+
+  create_table "computers", force: :cascade do |t|
+    t.string "userName"
+    t.string "category"
+    t.string "browser"
+    t.string "userAgentString"
+    t.string "description"
+    t.integer "time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end
