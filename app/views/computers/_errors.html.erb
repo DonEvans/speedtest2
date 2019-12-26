@@ -1,0 +1,12 @@
+<% if @computer.errors.any?  %>
+  <div id = "error_explanation" >
+    <div>
+    The form contains <%= pluralize(@computer.errors.count, "error") %>
+    </div>
+    <ul>
+    <% @computer.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li> 
+    <% end %>
+    </ul>
+  </div>
+<% end %>

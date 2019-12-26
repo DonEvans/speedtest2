@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get 'computers/edit'
   get '/languages', to: 'page#languages'
   get '/browsers', to: 'page#browsers'
+  resources :computers
 end
