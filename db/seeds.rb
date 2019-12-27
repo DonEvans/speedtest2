@@ -1,7 +1,24 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Create a main sample computer.
+Computer.create!(userName:  "Example User",
+                  category: "Desktop",
+                  browser: "Firefox",
+                  userAgentString: "Mozilla",
+                  description: "A test computer",
+                  time: 200)
+
+# Generate a bunch of additional users.
+29.times do |n|
+  userName  = Faker::Name.name
+  categories = %w{ Desktop Laptop Tablet Phone Other }
+  category = categories[rand(5)]
+  browsers = %w{ Chrome Firefox Safari Edge Internet_Explorer Opera Android Samsung_Internet UC_Browser Other }
+  browser = browsers[rand(10)]
+  description = Faker::Lorem.sentence(word_count: 6)
+  time = rand(500)
+  Computer.create!(userName:  userName,
+               category: category,
+               browser: browser,
+               userAgentString: "Mozilla",
+               description: description,
+               time: time)
+end

@@ -19,16 +19,16 @@
   </p>
 
   <p>
-    <%= f.label :browser, "Browser name" %><br>
+    <%= f.label :browser, "Browser" %><br>
     <%= f.select( :browser, options_for_select([
-["Other", "Unknown browser"], ["Internet Explorer 9", "Internet Explorer 9"], ["Internet Explorer 8", "Internet Explorer 8"], ["Internet Explorer 7","Internet Explorer 7"], ["Internet Explorer 6", "Internet Explorer 6"], ["Firefox 3.x", "Firefox 3.x"], ["Firefox 4 or higher", "Firefox 4 or higher"], ["Chrome", "Chrome"], ["Safari", "Safari"], ["Opera", "Opera"]
+["Other", "Unknown browser"], ["Chrome", "Chrome"], ["Firefox", "Firefox"], ["Safari", "Safari"], ["Edge", "Edge"], ["Internet Explorer", "Internet_Explorer"], ["Opera", "Opera"], ["Android", "Android"], ["Samsung Internet", "Samsung_Internet"], ["UC Browser", "UC_Browser"]
 ]))%>
   </p>
 
   <p>
     <%= f.label :category, "Machine type" %><br>
     <%= f.select( :category, options_for_select([
-["Desktop", "Desktop"], ["Laptop", "Laptop"], ["Tablet", "Tablet"], ["Phone", "Phone"], ["Ipod", "Ipod"], ["Other", "Other"]
+["Desktop", "Desktop"], ["Laptop", "Laptop"], ["Tablet", "Tablet"], ["Phone", "Phone"], ["Other", "Other"]
 ]))%>
   </p>
 
@@ -47,6 +47,6 @@
 <% end %>
 
 <script type="text/javascript">
-  //Maybe delete
+//Maybe delete
 </script>
 

@@ -1,5 +1,6 @@
 class ComputersController < ApplicationController
   def index
+    @computer = Computer.all
   end
 
   def show

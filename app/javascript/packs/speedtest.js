@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
   var list = new Array();
-  var PRIMES_LESS_THAN = 20000;
+  var PRIMES_LESS_THAN = 70000;
   var startTime, finishTime, elapsedTime;
 
   //Record start time
@@ -31,9 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
   var lastPrimeIndex = list.length - 1;
 
 //Output
-//DEBUG
-console.log(elapsedTime);
-
   var testResult = document.querySelector("#testResult");
   testResult.innerHTML = `Your computer took ${elapsedTime} milliseconds to find all ${list.length + 2} primes less than ${PRIMES_LESS_THAN}.`;
   
@@ -41,8 +38,12 @@ console.log(elapsedTime);
   var field1 = document.querySelector("#computer_userAgentString");
   field1.value = navigator.userAgent;
   var field2=document.querySelector("#computer_time")
-  // var field2 = document.forms[0].computer[time];
   field2.value = elapsedTime;
+  var field3 = document.querySelector("#computer_category");
+  field3.value = detectDevice(navigator.userAgent);
+  var field4 = document.querySelector("#computer_browser");
+  field4.value = detectBrowser(navigator.userAgent);
+
 
   function primeFinder(decade) {
 
@@ -72,4 +73,40 @@ console.log(elapsedTime);
       }
     }
   }
+
+  function detectBrowser(userAgent){
+    //Regexs to detect various browsers
+    let firefox = /\sFirefox/;
+    let chrome = /\sChrome/;  //Check not Edge
+    let safari = /\sSafari/;  //Check not Edge, Chrome
+    let msie = /MSIE\s/;
+    let opera1 = /OPR/;
+    let opera2 = /Opera/;
+    let edge = /\sEdg/;    //May return positive for Chrome and Safari
+    let samsung_internet = /\sSamsungBrowser/; //Also positive for chrome and safari
+    let uc_browser = /\sUCBrowser/;
+    if (userAgent.match(firefox)) {
+      console.log("Firefox");
+    }
+  }
+
+  function detectDevice(userAgent){
+    //Regexes to detect various devices
+    let winPhone = /Windows\sPhone/;  //mobile
+    let iPhone = /iPhone/;    //mobile
+    let android = /Android/;   //mobile
+    let mac = /Macintosh; Intel Mac OS X/;    //Desktop
+    let pc = /Windows\sNT/ ;                  //Desktop
+    let linux = /Linux x86_64/;               //Desktop
+
+    if ( userAgent.match(winPhone) || userAgent.match(iPhone) || userAgent.match(android) ){
+      return "Mobile";
+      } else if ( userAgent.match(mac) || userAgent.match(pc) || userAgent.match(linux) ){
+        return "Desktop";
+      } else {
+        return "Other";
+    }
+    
+  }
+
 });
