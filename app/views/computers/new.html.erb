@@ -17,26 +17,13 @@
     <%= f.label :userName, "Your name (required)" %><br>
     <%= f.text_field :userName %>
   </p>
-
-  <p>
-    <%= f.label :browser, "Browser" %><br>
-    <%= f.select( :browser, options_for_select([
-["Other", "Unknown browser"], ["Chrome", "Chrome"], ["Firefox", "Firefox"], ["Safari", "Safari"], ["Edge", "Edge"], ["Internet Explorer", "Internet_Explorer"], ["Opera", "Opera"], ["Android", "Android"], ["Samsung Internet", "Samsung_Internet"], ["UC Browser", "UC_Browser"]
-]))%>
-  </p>
-
-  <p>
-    <%= f.label :category, "Machine type" %><br>
-    <%= f.select( :category, options_for_select([
-["Desktop", "Desktop"], ["Laptop", "Laptop"], ["Tablet", "Tablet"], ["Phone", "Phone"], ["Other", "Other"]
-]))%>
-  </p>
-
   <p>
     <%= f.label :description, "Machine description (126 characters max)"%><br>
     <%= f.text_area :description %>
   </p>
   
+  <%= f.hidden_field :category %>
+  <%= f.hidden_field :browser %>
   <%= f.hidden_field :time %>
   <%= f.hidden_field :userAgentString %>                          
 
@@ -46,7 +33,5 @@
 
 <% end %>
 
-<script type="text/javascript">
-//Maybe delete
-</script>
+<%= javascript_pack_tag 'speedtest' %>
 

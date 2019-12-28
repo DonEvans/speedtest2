@@ -7,10 +7,10 @@ Computer.create!(userName:  "Example User",
                   time: 200)
 
 # Generate a bunch of additional users.
-29.times do |n|
+49.times do |n|
   userName  = Faker::Name.name
-  categories = %w{ Desktop Laptop Tablet Phone Other }
-  category = categories[rand(5)]
+  categories = %w{ Desktop Mobile Other }
+  category = categories[rand(3)]
   browsers = %w{ Chrome Firefox Safari Edge Internet_Explorer Opera Android Samsung_Internet UC_Browser Other }
   browser = browsers[rand(10)]
   description = Faker::Lorem.sentence(word_count: 6)

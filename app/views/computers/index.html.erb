@@ -1,5 +1,5 @@
 
-<% @computer.sort { |a,b| a.time <=> b.time } %>
+<% @computer = @computer.sort { |a,b| a.time <=> b.time } %>
 
 <h3>Systems Tested</h3>
 
@@ -13,7 +13,8 @@
 <h4>Desktops</h4>
 <table>
   <tr>
-    <td>Time in milliseconds </td> <td>&nbsp; | Browser |</td> <td>Machine Description</td> <td>&nbsp;</td>
+    <td>Time in milliseconds </td> <td>&nbsp; | Browser |</td> 
+    <td class="description" >Machine Description</td> <td>&nbsp;</td>
   </tr>
 <% for computers in @computer %>
   <% if computers.category == "Desktop" %>
@@ -27,7 +28,7 @@
     <td>
       <%= computers.browser %>
     </td>
-    <td>
+    <td class="description" >
       <%=  computers.description %>
     </td>
     <td>
@@ -38,42 +39,14 @@
 <% end %>
 </table>
 
-<h4>Laptops</h4>
-<table>
-  <tr>
-    <td>Time in milliseconds </td><td>&nbsp; | Browser |</td> <td>Machine Description</td>
-  </tr>
-<% for computers in @computer %>
-  <% if computers.category == "Laptop" %>
-    <tr>
-    <td>
-      <div style="background-color: #69C; width:<%=
-      (computers.time / 10)  %>px; max-width: 400px;">
-      <%= computers.time %>
-      </div>
-    </td>
-    <td>
-      <%= computers.browser %>
-    </td>
-    <td>
-      <%=  computers.description %>
-    </td>
-    <td>
-      <%= link_to "show", :action => 'show', :id => computers %>
-    </td>
-    </tr>
-  <% end %>
-<% end %>
-</table>
-
-<h4>Tablets, Phones and Ipods</h4>
+<h4>Mobile Devices</h4>
 <table>
   <tr>
     <td>Time in milliseconds </td> <td>&nbsp; | Browser |</td>
-<td>Machine Description</td>
+<td class="description" >Machine Description</td>
   </tr>
 <% for computers in @computer %>
-  <% if (computers.category == "Tablet" || computers.category == "Phone"  || computers.category == "Ipod" )  %>
+  <% if (computers.category == "Mobile")  %>
     <tr>
     <td>
       <div style="background-color: #69C; width:<%=
@@ -84,7 +57,7 @@
     <td>
       <%= computers.browser %>
     </td>
-    <td>
+    <td class="description" >
       <%=  computers.description %>
     </td>
     <td>
@@ -99,7 +72,7 @@
 <table>
   <tr>
     <td>Time in milliseconds </td> <td>&nbsp; | Browser |</td>
-<td>Machine Description</td>
+<td class="description" >Machine Description</td>
   </tr>
 <% for computers in @computer %>
   <% if computers.category == "Other" %>
@@ -113,7 +86,7 @@
     <td>
       <%= computers.browser %>
     </td>
-    <td>
+    <td class="description" >
       <%=  computers.description %>
     </td>
     <td>

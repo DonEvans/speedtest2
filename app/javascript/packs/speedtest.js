@@ -1,6 +1,6 @@
 //Computer speed test in Javascript
 
-document.addEventListener("DOMContentLoaded", function() {
+// document.addEventListener("DOMContentLoaded", function() {
 
   var list = new Array();
   var PRIMES_LESS_THAN = 70000;
@@ -85,8 +85,24 @@ document.addEventListener("DOMContentLoaded", function() {
     let edge = /\sEdg/;    //May return positive for Chrome and Safari
     let samsung_internet = /\sSamsungBrowser/; //Also positive for chrome and safari
     let uc_browser = /\sUCBrowser/;
-    if (userAgent.match(firefox)) {
-      console.log("Firefox");
+    if (userAgent.match(uc_browser)) {
+      return "UC Browser";
+    } else if (userAgent.match(samsung_internet)) {
+      return "Samsung Internet";
+    } else if (userAgent.match(edge)) {
+      return "Microsoft Edge";
+    } else if ( userAgent.match(opera1) || userAgent.match(opera2) ){
+      return "Opera";
+    } else if (userAgent.match(msie)) {
+      return "Internet Explorer";
+    } else if (userAgent.match(chrome)) {
+      return "Chrome";
+    } else if (userAgent.match(safari)) {
+      return "Safari";
+    } else if (userAgent.match(firefox)){
+      return "Firefox";
+    } else {
+      return "Unidentified Browser";
     }
   }
 
@@ -109,4 +125,4 @@ document.addEventListener("DOMContentLoaded", function() {
     
   }
 
-});
+//});
