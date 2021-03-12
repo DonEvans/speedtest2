@@ -55,9 +55,8 @@ body {
   background-color: #AAA;
   color: #1a1a1a;
   font-family: Constantia, Georgia, "Times New Roman", serif; 
-  margin: 0em; 
-  min-height: 99vh;
-  padding: 0em;
+  line-height: 1.4;
+
 }
 
 /* Original width was 911 px   */
@@ -65,8 +64,9 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 1020px; 
-  margin: 0em auto; 
-  width: 99vw;
+  margin: 0em auto;
+  min-height: 100vh;
+  width: 98vw;
 }
 
 #header {
@@ -91,35 +91,47 @@ font-family:  Comic Sans MS, Calibri, Helvetica, Arial, sans-serif;
 h2 { font-size:  1.3em; color:  #666; }
 
 .nav {
+  
   flex-grow: 0;
-  flex-basis: 2.5em;
+  flex-basis: auto;
   flex-shrink: 0;
   font-size: 0.9em;
-  margin: 0; 
-  padding: 0; 
   background-color: #69C; 
-  list-style-type:none; 
-  width: 100%;
+   
+  min-width: 98vw;
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style-type:none;
 }
 
 .nav li {
-margin: 0; 
-padding: 0; 
-float: left;
-font-family: Consolas, Calibri, Helvetica, Arial, sans-serif
+  border-right: 1px solid #000;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 16vw;
+  /* margin: 0; 
+  padding: 0; */
+   /*float: left; */
+  text-align: center;
 }
 
 .nav a {
-  float:left; 
-  width: 12em; 
+  /* float: left; */
+ /* width: 16.4vw; */
   color: #000; 
+  
+  font-family: Consolas, Calibri, Helvetica, Arial, sans-serif;
   text-decoration: none; 
   line-height: 2.5; 
-  text-align: center; 
-  border-right: 1px solid #000;
+   
+  
+  background-color: red;
 }
 
-.nav a:hover {background-color: #FF9; color: #000;}
+.nav li:hover {background-color: #FF9; color: #000;}
 
 #main { padding: 2em 1em 2em 1em ; 
         background-color: #E6E6D8;
@@ -130,8 +142,7 @@ font-family: Consolas, Calibri, Helvetica, Arial, sans-serif
   flex-grow: 0;
   flex-basis: 1em;
   flex-shrink: 1;
-  background-color: #D9D9D8;
-  margin: 0em;
+  background-color: #D9D9D9;
   padding: 0.5em;
 }
 
