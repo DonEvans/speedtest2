@@ -7,4 +7,7 @@ class PageController < ApplicationController
 
   def browsers
   end
+
+  def multi
+  end
 end

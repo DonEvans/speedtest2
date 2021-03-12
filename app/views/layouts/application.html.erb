@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Speedtest2</title>
+    <title>Speedtest2 | <%= yield(:title) %></title>
     <meta charset="utf-8">
     <meta name="viewport", content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
 
     <%= stylesheet_link_tag 'application', media: 'all', 
                       'data-turbolinks-track': 'reload' %>
@@ -30,6 +31,7 @@
           <li><%= link_to "Results", results_path %></li>
           <li><%= link_to "Languages Compared", languages_path %></li>
           <li> <%= link_to "Browsers Compared", browsers_path %></li>
+          <li> <%= link_to "Multithreaded Test", multi_path %></li>
        </ul>
       </div>
 
