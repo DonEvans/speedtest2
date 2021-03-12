@@ -56,11 +56,11 @@ body {
   color: #1a1a1a;
   font-family: Constantia, Georgia, "Times New Roman", serif; 
   line-height: 1.4;
-
 }
 
 /* Original width was 911 px   */
-#container { 
+.container { 
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   max-width: 1020px; 
@@ -69,7 +69,7 @@ body {
   width: 98vw;
 }
 
-#header {
+.header {
   background-color: #D9D9D8;
   flex-grow: 0;
   flex-basis: 5em;
@@ -79,7 +79,10 @@ body {
 h1, h2, h3 { 
 margin:  .25em 0 .25em 0; 
 font-family:  Calibri, Helvetica, Arial, sans-serif; 
+font-weight: bold;
+/*
 letter-spacing:  -.05em; 
+*/
 } 
 /* Specific stylesfor h1 and h2 */ 
 h1 { 
@@ -88,17 +91,18 @@ text-align: center;
 font-family:  Comic Sans MS, Calibri, Helvetica, Arial, sans-serif; 
 } 
 
-h2 { font-size:  1.3em; color:  #666; }
+h2 { font-size:  1.5em; color:  #666; }
 
 .nav {
   
   flex-grow: 0;
   flex-basis: auto;
   flex-shrink: 0;
-  font-size: 0.9em;
+  font-size: 1em;
   background-color: #69C; 
-   
-  min-width: 98vw;
+  /* 
+  width: 98vw;
+  */
 }
 
 .nav ul {
@@ -111,34 +115,35 @@ h2 { font-size:  1.3em; color:  #666; }
   border-right: 1px solid #000;
   flex-grow: 1;
   flex-shrink: 0;
-  flex-basis: 16vw;
-  /* margin: 0; 
-  padding: 0; */
-   /*float: left; */
+  flex-basis: auto;
   text-align: center;
 }
 
 .nav a {
-  /* float: left; */
- /* width: 16.4vw; */
+  display: block;
   color: #000; 
-  
   font-family: Consolas, Calibri, Helvetica, Arial, sans-serif;
-  text-decoration: none; 
-  line-height: 2.5; 
+  line-height: 2.5;
+  text-decoration: none;
    
-  
-  background-color: red;
 }
 
-.nav li:hover {background-color: #FF9; color: #000;}
+.nav li:hover {
+  background-color: #FF9;
+ }
+.nav li:active {
+    background-color: #FF9;
+    opacity: 0.5;
+}
 
-#main { padding: 2em 1em 2em 1em ; 
+.main {  
         background-color: #E6E6D8;
+        flex-direction: column;
         flex-grow: 1;
+        padding: 2em 1em 2em 1em ;
       }
 
-#footer {
+.footer {
   flex-grow: 0;
   flex-basis: 1em;
   flex-shrink: 1;
@@ -189,7 +194,7 @@ textarea {
   h1 {
     font-size: 2em;
   }
-  #header {
+  .header {
     flex-basis: 3em;
   }
   .codeContainer1 {
@@ -200,8 +205,10 @@ textarea {
   }
   .nav a {
     font-size: 0.8em;
+    /*
     line-height: 2.5;
     width: 10em;
+    */
   }
 }
 
@@ -224,8 +231,8 @@ textarea {
     text-transform: uppercase;
     width: 6.7em;
   }
-  #main {
+  .main {
     font-size: 0.9em;
-    padding: 0 0.2em 0 0.2em;
+    padding: 0 0.4em 0 0.4em;
   }
 }
