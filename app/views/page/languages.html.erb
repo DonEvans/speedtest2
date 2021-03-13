@@ -1,190 +1,244 @@
 <% provide(:title, 'Languages Compared' ) %>
-<h2>One algorithm. Four different languages.</h2>
+<h2>One algorithm. Three different languages.</h2>
 <br>
-<p>I implemented the same algorithm in 4 different languages, to check the runtime and expressiveness of each language. This is actually a very inefficient algorithm for finding primes, but it works just fine for comparing the speed of hardware and languages.</p>
-
-<%= image_tag("languageSpeedComparison.jpg", alt: "Bar chart") %>
-
+<p>I implemented the same algorithm in 3 different languages, to check the runtime and expressiveness of each language. </p>
+<br>
+<%= image_tag("languageSpeedTest2020.png", alt: "Bar chart") %>
+<br><br><br>
 <h2>Java</h2>
-<p>Java runs the fastest, finding every prime under 50,000 in 121 ms on my system. I wrote the original code in Java, because it is the language with which I am most familiar. Java is also the least expressive language, with the most lines of code. </p>
+<p>Java runs the fastest, finding every prime under 4,000,000 in 686 milliseconds on my system. I wrote the original code in Java, because it is the language with which I am most familiar. Java is also the least expressive language, with the most lines of code. </p>
 
 <p>Java's massive library could greatly reduce coding time on projects which make use of it. The complex object oriented structure is of little help for my program, but could be very useful on large projects.</p>
 
-<p>When it comes to deployability, Java has a big advantage over PHP or Ruby. Java claims to be 'write once, run anywhere', and Java virtual machines are available for most systems</p>
+<p>When it comes to deployability, Java has a big advantage over Ruby. Java claims to be 'write once, run anywhere', and Java virtual machines are available for most systems</p>
 
 <h2>Javascript</h2>
-<p>I was very surprised to find out the Javascript can run nearly as fast as Java. I had expected it to be much slower. On Chrome, it found every prime under 50,000 in 162 ms. The latest generation of browsers runs Javascript about 10 to 20 times faster than the older ones. On speed, Javascript now looks like a real rival to Java. </p>
+<p>I was very surprised to find out the Javascript can run nearly as fast as Java. I had expected it to be much slower. On Chrome, it found every prime under 4,000,000 in 765 milliseconds.  On speed, Javascript now looks like a real rival to Java. </p>
 
 <p>Javascript is also a more expressive language, getting the job done in fewer lines of code. I found it easy to port the code from Java to Javascript. However, it lacks Java's huge library and object oriented features. Javascript, of course, is unsuitable for any program that needs access to the hard drive.</p>
 
 <p>The big advantage of Javascript is its incredible deployability. Simply put the code in a web page, and anybody anywhere can download and run the program when they access your web page. There is nothing to install, and no security worries.</p>
 
-<h2>PHP</h2>
-<p>PHP runs about 70 times slower than Java on my system. However, I found it the fastest language to write code in. It is more expressive than Java or Javascript, and it makes writing code easier. PHP does have object oriented features, but unlike Java you are not forced to use them.</p>
-
-<p>This speed test may be a little unfair to PHP, since the language is usually used to serve web pages, not for integer arithmetic.</p>
 
 <h2>Ruby</h2>
-<p>I was surprised at how much faster Ruby 1.9.2 was than PHP. It is a big improvement over Ruby 1.8.7. Ruby is still much much slower than Java or Javascript. Ruby is the most expressive language, but I found it slower to write code in than PHP. Ruby is more different from Java than PHP, and the error messages tend to be cryptic.<p>
-
+<p>Ruby is the most expressive language, and fastest to write code in, but unfortunately it is very slow running. Finding every prime under 4000000 takes nearly 30 seconds on my system. This makes Ruby over 40 times slower than Java.<p>
+<br><br>
 <h2>Code Listings</h2>
 <div class="codeContainer1">
 <div class="code">
-<h2>Java (81 lines, 1498 characters)</h2>
+<h2>Java (134 lines, 4066 characters)</h2>
 <br>
 <pre>
 <code>
+//This tests the speed of a computer by finding all the prime numbers under a 
+//certain value. It is designed to use multiple threads
+//It tests every odd integer (evenes are not prime) up to a maximum value
+//For each candidate it finds the square root and then tests every odd number
+//less than the square root
+
 import java.util.*;
-
-public class ComputerSpeedTest {
-
-  private ArrayList&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();
-  public static final int PRIMES_LESS_THAN = 20000;
-  private long startTime, finishTime, elapsedTime;
+public class multithreadedComputerSpeedTest3_1 {
+ 
+  //Set prime count to 4 because 2,3,5 and 7 are prime.
+  //Start prime finding algorithm at 9
+  private int primeCount = 4;
+  public static final int START = 9;
+  public static final int MAX = 4000000;
+  //The next two values, thread count and problem sections, have to be set together.
+  //They specify the number of threads and how the work is divided
+  public static final int threadCount = 1;
+  //Make array to specify which range of values each thread is reponsible for
+  public static final int[] problemSections = {START, MAX};
+  //Create flags which are set to true when the threads reach the end of their loops
+  // Boolean instance variables are initialized automatically to false
+  ArrayList&lt;Boolean> threadDone = new ArrayList&lt;Boolean>();
+  //Instance variable to record start time
+  Date startTime;
   
+
   public static void main(String[] args) {
-    ComputerSpeedTest instance = new ComputerSpeedTest();
+    multithreadedComputerSpeedTest3_1 instance = new multithreadedComputerSpeedTest3_1();
     instance.go();
   }
-   
-  public void go(){
+
+  void go() {
     //Record start time
-    Date startDate = new Date();
-    startTime = startDate.getTime();
-    
-    //Start prime finding algorithm
-    list.add(3);
-    list.add(7);
-    int decade = 1;
-    int counter = (PRIMES_LESS_THAN/10) -1;
-    
-    while (counter &gt; 0) {
-      primeFinder(decade);
-      ++decade;
-      --counter;
+    startTime = new Date(); 
+
+    //Make runnables
+    Runnable[] runnables = new Runnable[threadCount];
+    //Make runnables in loop
+    for (int i=0; i&lt;threadCount; i++) {
+      runnables[i] = new primeFinder(problemSections[i], problemSections[i+1]);
     }
 
-    //Record finish time and find elapsed time.
-    Date finishDate = new Date();
-    finishTime = finishDate.getTime();
-    elapsedTime = finishTime - startTime;
-    
- System.out.println((list.size()+ 2)+ " primes less than "
-                                    + PRIMES_LESS_THAN);  
- //Add 1 to list size to get correct number of primes to allow for 2 and 5.
- System.out.println("Time to complete = " + elapsedTime + " milliseconds.");
-  }
-    
-    public void outputPrimes () {
-      int counter2 = 30;
-      for (int prime : list){
-        System.out.print(prime + " ");
-        --counter2;
-        if (counter2 &lt; 0){
-          System.out.println("");
-          counter2 = 30;
-        }
-      }
+    //Make threads
+    Thread[] threads = new Thread[threadCount];
+    //Create threads in loop
+    for (int i = 0; i&lt;threadCount; i++) {
+      threads[i] = new Thread(runnables[i]);
+     }
+
+     //Make loop to start threads
+    for (int i=0; i&lt;threadCount; i++) {
+      threads[i].start();
     }
-  
-  public void primeFinder(int decade) {
-    //Generate candidates, don't bother with even numbers
-    // or anything ending in 5.
-    int[] candidates = new int[4];
-    candidates[0] = decade*10 + 1;
-    candidates[1] = decade*10 + 3;
-    candidates[2] = decade*10 + 7;
-    candidates[3] = decade*10 + 9;
-    
-    //Test each candidate against known primes excluding 2 and 5.
-    for (int candidate : candidates) {
-      int listSize = list.size();
-      int index = 0;
-      
-      while (listSize &gt; 0){
-        int prime = list.get(index);
-        if (candidate%prime == 0){
-          break;
-        }else if(listSize == 1){
-          list.add(candidate);
-        }
-        ++index;
-        --listSize;
-      }
+
+    //As each thread completes, it adds an entry to the threadDone list.
+    //When the length of the list equals the threadCount all threads have finished
+    //At this point break loop, otherwise go back to sleep
+    while (threadDone.size() &lt; threadCount) {
+      try {
+        Thread.sleep(2);
+      } catch(Exception ex) {
+        ex.printStackTrace();
+      };
     }
+
+    //Record finish time
+    Date d10 = new Date();
+    double runtime = (d10.getTime()-startTime.getTime())/1000.0;  //Get runtime in seconds
+    System.out.println(primeCount + " primes found in " + runtime + " seconds.");
+
   }
+
+  synchronized void incrementPrimeCount() {
+    primeCount += 1;
+  }
+
+
+//Using an inner class
+class primeFinder implements Runnable {
+  int max = 0;
+  int min = 0;
+
+  primeFinder (int minParam, int maxParam) {
+    min = minParam;
+    max = maxParam;
+  }
+
+  public void run() {
+    //Range is set by instance variables
+    //In loop, test each number in a given range to see if it is prime
+    //Don't need to test evens so ensure minimum value is odd
+    //then increment by 2
+    if(min%2 == 0) {
+      min+=1;
+    }
+    for (int i = min; i&lt;=max; i+=2) {
+      int candidate = i;
+
+      //Find square root for each number in range
+      int sqrt = (int) Math.sqrt(i);
+      boolean isPrime = true;
+      //Test for prime by dividing candidate by every odd integer 
+      //less than the square root
+
+        for (int j=3; j&lt;=sqrt; j+=2) {
+          
+          //Move to next if candidate is divisible
+          if (candidate%j == 0){
+            isPrime = false;
+            break;
+          }
+
+        }
+
+        if (isPrime == true) {
+          incrementPrimeCount();
+        }
+    }
+
+    //When loop completes print message in terminal
+    //Record finish time
+      Date now = new Date();
+      //Get runtime in seconds
+      double runtime = (now.getTime() - startTime.getTime())/1000.0;
+      String threadName = Thread.currentThread().getName();
+      System.out.println(threadName + " done at " + runtime);
+
+      //Set flag to signal thread has completed
+      threadDone.add(true);
+  } 
+
 }
 
+}
 </code>
 </pre>
 </div>
 
 <div class="code">
-<h2>Javascript (61 lines, 1194 characters)</h2>
+<h2>Javascript (66 lines, 1864 characters)</h2>
 <br>
 <pre>
 <code>
-//Computer speed test in Javascript
+  //This tests the speed of a computer by finding all the prime numbers under a 
+  //certain value. 
+  //It tests every odd integer (evens are not prime) up to a maximum value
+  //For each candidate it finds the square root and then tests every odd number
+  //less than the square root
 
-  var list = new Array();
-  var PRIMES_LESS_THAN = 20000;
-  var startTime, finishTime, elapsedTime;
 
-  //Record start time
-  var startDate = new Date();
-  startTime = startDate.getTime();
+  //Set prime count to 4 because 2,3,5 and 7 are prime.
+  //Start prime finding algorithm at 9
+  let primeCount1 = 4;
+  const START = 9;
+  const MAX = 4000000;
 
-  //Start prime finding algorithm
-  list.push(3);
-  list.push(7);
-  var decade = 1;
-  var counter = (PRIMES_LESS_THAN/10) -1;
-  
-  while (counter &gt; 0) {
-    primeFinder(decade);
-    decade++;
-    counter--;
-  }
+  let startDate = new Date();
+  let startTime = startDate.getTime();
 
-//Record finish time and find elapsed time.
-  var finishDate = new Date();
-  finishTime = finishDate.getTime();
-  elapsedTime = finishTime - startTime;
 
-  document.write((list.length + 2) + " primes less than " 
-                                    + PRIMES_LESS_THAN + "...");
-//Add 2 to list size to get correct number of primes to allow for 2 and 5.
-  var lastPrimeIndex = list.length - 1;
-  document.write(" Time to complete = " + elapsedTime + " milliseconds.");
-  
-function primeFinder(decade) {
+  //Receive message from function and extract results
+  let results = primeCounter(START, MAX, startTime);
+  primeCount1 += results[0];
 
-  //Generate candidates, don't bother with even numbers
-  // or anything ending in 5.
-  var candidates = new Array(4);
-  candidates[0] = decade*10 + 1;
-  candidates[1] = decade*10 + 3;
-  candidates[2] = decade*10 + 7;
-  candidates[3] = decade*10 + 9;
-  
-  //Test each candidate against known primes excluding 2 and 5.
-  for (i=0; i&lt;4; i++) {
-    var candidate = candidates[i];
-    var listSize = list.length;
-    var index = 0;
-    
-    while (listSize &gt; 0) {
-      var prime = list[index];
-      if (candidate%prime == 0){
-        break;
-      }else if(listSize == 1) {
-        list.push(candidate);
-      }
-      ++index;
-      --listSize;
+
+  //Record finish time
+  let finishTime = new Date().getTime();
+  let runtime = (finishTime - startTime);  
+
+  let resultMessage = "Counting all primes under " + MAX; 
+  resultMessage += " found " + primeCount1 + " primes in " + runtime + " milliseconds.";
+  console.log(resultMessage);
+
+
+  function primeCounter(min, max, startTime) {
+    //Range is set by parameters
+    //In loop, test each number in a given range to see if it is prime
+    //Don't need to test evens so ensure minimum value is odd
+    //then increment by 2
+    if (min%2 == 0) {
+      min+=1;
     }
+    let primeCount2 = 0;
+    for (let i = min; i<=max; i+=2) {
+      let candidate = i;
+
+      //Find square root for each number in range
+      let sqrt = Math.sqrt(i);
+      let isPrime = true;
+      //Test for prime by dividing candidate by every odd integer 
+      //less than the square root
+
+      for (let j=3; j<=sqrt; j+=2) {
+
+        //Move to next if candidate divisible
+        if (candidate%j === 0) {
+          isPrime = false;
+          break;
+        }
+      }
+      if (isPrime == true) {
+        primeCount2++;
+      }
+    }
+    //Make and return results array with number of primes and runtime
+    let threadRunTime = new Date().getTime() - startTime;
+    let results = [primeCount2, threadRunTime];
+    return results;
   }
-}
 
 </code>
 </pre>
@@ -194,117 +248,68 @@ function primeFinder(decade) {
 
 <div class="codeContainer1">
 <div class="code">
-<h2>PHP (52 lines, 982 characters)</h2>
+<h2>Ruby (56 lines, 1433 characters)</h2>
 <pre>
 <code>
-//Computer speed test in PHP
-define("PRIMES_LESS_THAN",  20000);
+#This tests the speed of a computer by finding all the prime numbers under a 
+#certain value. 
+#It tests every odd integer (evens are not prime) up to a maximum value
+#For each candidate it finds the square root and then tests every odd number
+#less than the square root
 
-//Record start time
-$startTime = time();
-
-//Start prime finding algorithm
-$list = array(3,7);
-$decade = 1;
-$counter = (PRIMES_LESS_THAN/10) -1;
-
-while ($counter &gt; 0) {
-  primeFinder($decade);
-  $decade++;
-  $counter--;
-}
-
-//Record finish time and find elapsed time.
-$finishTime = time();
-$elapsedTime = $finishTime - $startTime;
-
-echo (list.sizeof() + 2)." primes less than ".PRIMES_LESS_THAN."&lt;br&gt;";
-//Add 2 to list size to get correct number of primes to allow for 2 and 5.
-echo "Time to complete = ".$elapsedTime." milliseconds.";
-
-function primeFinder($decade) {
-
-  //Generate candidates, don't bother with even numbers
-  // or anything ending in 5
-  $candidates[] = $decade*10 + 1;
-  $candidates[] = $decade*10 + 3;
-  $candidates[] = $decade*10 + 7;
-  $candidates[] = $decade*10 + 9;
+def primeCounter(min, max)
+  #Range is set by parameters
+  #In loop, test each number in a given range to see if it is prime
   
-  global $list[];
-  //Test each candidate against known primes excluding 2 and 5.
-  foreach ($candidates as $candidate) {
-    $listSize = $list.sizeof();
-    $index = 0;
-    
-    while ($listSize &gt; 0) {
-      $prime = $list[$index];
-      if ($candidate%$prime == 0) {
+  primeCount2 = 0;
+  for i in min..max do
+
+    #Don't need to test evens so skip them
+    next if (i%2 == 0) 
+
+    #Find square root for each number in range
+    candidate = i;
+    sqrt = Math.sqrt(i).to_i;
+    isPrime = true;
+   
+    #Test for prime by dividing candidate by every odd integer 
+    #less than the square root
+    for j in 2..sqrt do
+      #Skip evens
+      next if (j%2 == 0)
+ 
+      #Move on if candidate is divisible by j
+      if (candidate%j == 0) then
+        isPrime = false;
         break;
-      }elseif($listSize == 1) {
-        $list[] = $candidate;
-      }
-      ++$index;
-      --$listSize;
-    }
-  }
-}
-</code>
-</pre>
-</div>
-
-<div class="code">
-<h2>Ruby (48 lines, 844 characters)</h2>
-<pre>
-<code>
-# Computer speed test in Ruby
-  $list = [3,7]
-  primes_less_than = 20000
-  decade = 1
-
-  def primeFinder(d)
-  #Generate candidates, don't bother with even numbers
-  # or anything ending in 5.
-    candidates = Array.new
-    candidates &lt;&lt; d*10 + 1
-    candidates &lt;&lt; d*10 + 3
-    candidates &lt;&lt; d*10 + 7
-    candidates &lt;&lt; d*10 + 9
-      
-    #Test each candidate against known primes excluding 2 and 5.
-    candidates.each { |candidate|
-      listSize = $list.length
-      index = 0
-        
-      while listSize &gt; 0
-        prime = $list[index]
-        if (candidate % prime == 0)
-          break
-        elsif listSize == 1
-          $list &lt;&lt; candidate
-        end
-        index += 1
-        listSize -= 1
       end
-    }
-  end
-  
-  startTime = Time.now     #Record start time
-  counter = (primes_less_than/10) - 1
-  decade = 1
+    end
 
-  while (counter &gt; 0)
-    primeFinder(decade)
-    decade += 1
-    counter -= 1
+    if (isPrime == true) then
+        primeCount2 += 1;
+    end
+    
   end
-    
-  #Record finish time and elapsed time.
-  elapsedTime = Time.now - startTime 
-    
-  #Add 2 to list size to get correct number of primes to allow for 2 and 5.
-puts ($list.length + 2).to_s + ' primes less than ' +primes_less_than.to_s
-puts "Time to complete = " + (elapsedTime*1000).to_s + " milliseconds."
+  return primeCount2;
+end
+
+#Set prime count to 4 because 2,3,5 and 7 are prime.
+#Start prime finding algorithm at 9
+primeCount1 = 4;
+
+Start = 9;
+Max = 4000000;
+
+startTime = Time.now
+puts startTime;
+
+primeCount1 += primeCounter(Start, Max);
+
+finishTime = Time.now;
+runTime = finishTime - startTime;
+resultMessage = "Counting all primes under #{Max}, found #{primeCount1} primes";
+resultMessage += " in #{runTime} seconds.";
+puts resultMessage;
 </code>
 </pre>
 <br><br><br>

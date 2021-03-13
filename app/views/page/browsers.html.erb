@@ -1,9 +1,17 @@
-<% provide(:title, 'Browsers Compared' ) %>
+<% provide(:title, 'Systems Compared' ) %>
+<h2>Smartphones are quick!</h2>
+
+<p>Modern smartphones are surprisingly fast computing devices, despite their small size. A 2021 phone is likely faster than a laptop or desktop PC bought a few years ago. The speed of a moderately priced Apple phone has improved by nearly five fold since 2012. Smart phones appear to be leading the way in using smaller feature sizes on their chips, with PC processors lagging behind. The chart below shows the speed of a variety of phones and tablets, plus a laptop and a desktop. The phones win easily!</p>
+<br>
+<%= image_tag("systemTime2021.PNG", alt: "Bar chart of runtimes") %>
+<br><br><br>
 <h2>Which browser has the fastest Javascript engine?</h2>
 
-<p>The latest generation of browsers represents a huge improvement in Javascript performance. The chart below shows how big the improvement is over older generation browsers. The chart shows the time taken for the prime finding program to complete in several different browsers installed on my system. </p>
-
-<%= image_tag("browserSpeedComparison2.jpg", alt: "Bar chart") %>
-
-<p>In my tests Chrome is consistently the fastest. Explorer 9 and Safari 4 are about a third slower than Chrome, with Safari tending to be a little faster. In my opinion, these differences are not that big a deal. However, the more than ten fold improvement over Firefox 3.6 and Explorer 8 provides a compelling reason to upgrade.</p>
-
+<p>On the PC,  Edge is a little faster than Chrome, with Firefox taking a little longer. </p>
+<br>
+<%= image_tag("javascriptTimePC.png", alt: "Bar chart") %>
+<br>
+<p>On the Mac Firefox is the fastest, with Chrome just behind. Last year Safari performed well, but at the minute is surprisingly bad, running at about half the speed of the other two. </p>
+<br>
+<%= image_tag("javascriptTimeMac.png", alt: "Bar chart") %>
+<br>
