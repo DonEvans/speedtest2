@@ -1,7 +1,7 @@
 <% provide(:title, 'Multithreaded Test' ) %>
-<h1>Multi-threaded speed test</h1>
-    <p>
-      Test running...
-      <br>
-      <span id="resultField"></span> &nbsp;
-    </p>
+<h2>Multi-threaded speed test</h2>
+<p id="testResult">
+  Error: no result!
+</p>    
+
+<%= javascript_pack_tag 'multithreadedSpeedtest' %>
