@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'computers/create'
   get 'computers/edit'
   get '/languages', to: 'page#languages'
-  get '/browsers', to: 'page#browsers'
+  get '/systems', to: 'page#systems'
   get '/multi', to: 'page#multi'
   resources :computers
 end

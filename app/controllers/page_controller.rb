@@ -5,7 +5,7 @@ class PageController < ApplicationController
   def languages
   end
 
-  def browsers
+  def systems
   end
 
   def multi

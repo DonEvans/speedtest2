@@ -13,10 +13,10 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "Speedtest2 | Languages Compared"
   end
 
-  test "should get browsers" do
-    get browsers_path
+  test "should get systems" do
+    get systems_path
     assert_response :success
-    assert_select "title", "Speedtest2 | Browsers Compared"
+    assert_select "title", "Speedtest2 | Systems Compared"
   end
 
   test "should get multithreaded" do
